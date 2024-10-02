@@ -10,51 +10,61 @@ class AppCameraView extends GetView<AppCameraController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('CameraView'),
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   title: const Text('CameraView'),
+      //   centerTitle: true,
+      // ),
       body: Obx(() {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(
-              width: double.maxFinite,
-            ),
-            if (controller.cameraInitialized.value)
-              SizedBox(
-                  height: Get.height - 200,
-                  child: CameraPreview(controller.cameraController)),
-            //
-            if (controller.cameraInitialized.value == false)
-              const CircularProgressIndicator(),
-            //
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    controller.startAppVideoRecord();
-                  },
-                  icon: const Icon(
-                    Icons.play_circle,
-                    size: 45,
-                    color: Colors.grey,
-                  ),
+        return SafeArea(
+          child: Stack(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              if (controller.cameraInitialized.value)
+                CameraPreview(controller.cameraController),
+              //
+              if (controller.cameraInitialized.value == false)
+                const CircularProgressIndicator(),
+              //
+              Positioned(
+                bottom: 10,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        controller.startAppVideoRecord();
+                      },
+                      icon: const Icon(
+                        Icons.play_circle,
+                        size: 45,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        controller.stopAppVideoRecord();
+                      },
+                      icon: const Icon(
+                        Icons.pause_circle,
+                        size: 45,
+                        color: Colors.grey,
+                      ),
+                    ),
+                      IconButton(
+                      onPressed: () {
+                        controller.switchCamera();
+                      },
+                      icon: const Icon(
+                        Icons.rotate_left,
+                        size: 45,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    controller.stopAppVideoRecord();
-                  },
-                  icon: const Icon(
-                    Icons.pause_circle,
-                    size: 45,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         );
       }),
     );

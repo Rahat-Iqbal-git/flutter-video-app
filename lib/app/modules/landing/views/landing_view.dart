@@ -16,23 +16,20 @@ class LandingView extends GetView<LandingController> {
         centerTitle: true,
       ),
       body: Obx(() {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        return ListView(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              width: double.maxFinite,
-            ),
+            // const SizedBox(
+            //   width: double.maxFinite,
+            // ),
             if (controller.showPlayVideo.value)
-              SizedBox(
-                height: Get.height - 300,
-                child: AspectRatio(
-                  aspectRatio: controller.videoPlayerController.value.aspectRatio,
-                  child: VideoPlayer(controller.videoPlayerController),
-                ),
+              AspectRatio(
+                aspectRatio: controller.videoPlayerController.value.aspectRatio,
+                child: VideoPlayer(controller.videoPlayerController),
               ),
             const SizedBox(
-              height: 50,
+              height: 10,
             ),
             TextButton(
               onPressed: () {

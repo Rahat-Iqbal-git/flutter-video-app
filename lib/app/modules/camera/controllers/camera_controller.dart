@@ -4,7 +4,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter_video_camera/app/modules/landing/controllers/landing_controller.dart';
 import 'package:get/get.dart';
 
-
 class AppCameraController extends GetxController {
   var filePath = "".obs;
   var cameras = <CameraDescription>[].obs;
@@ -12,7 +11,7 @@ class AppCameraController extends GetxController {
   var cameraInitialized = false.obs;
 
   @override
-  onInit(){
+  onInit() {
     super.onInit();
     loadCamera();
   }
@@ -34,9 +33,13 @@ class AppCameraController extends GetxController {
   }
 
   stopAppVideoRecord() async {
-    var appVideoFile =  await cameraController.stopVideoRecording();
+    var appVideoFile = await cameraController.stopVideoRecording();
     filePath.value = appVideoFile.path;
     Get.find<LandingController>().appVideoPath.value = appVideoFile.path;
     Get.back();
+  }
+
+  switchCamera() async {
+    await cameraController.setDescription(cameras[0]);
   }
 }
