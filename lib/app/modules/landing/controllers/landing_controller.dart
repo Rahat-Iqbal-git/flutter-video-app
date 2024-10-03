@@ -13,6 +13,6 @@ class LandingController extends GetxController {
     videoPlayerController =
         VideoPlayerController.file(File(appVideoPath.value));
     await videoPlayerController.initialize();
-    // await videoPlayerController.play();
+    await videoPlayerController.play();
   }
 }
