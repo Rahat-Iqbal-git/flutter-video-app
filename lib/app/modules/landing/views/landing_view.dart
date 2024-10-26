@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_video_camera/app/modules/video_update/video_update.dart';
+import 'package:flutter_video_camera/app/modules/video_update/video_update_scaffold_view.dart';
 import 'package:flutter_video_camera/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
@@ -33,13 +35,20 @@ class LandingView extends GetView<LandingController> {
             ),
             TextButton(
               onPressed: () {
-                Get.toNamed(Routes.CAMERA);
+                // Get.toNamed(Routes.CAMERA);
+                controller.requestPermissions();
               },
               style: TextButton.styleFrom(
                 backgroundColor: Colors.black,
                 foregroundColor: Colors.white,
               ),
               child: const Text("Go to camera"),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.to(const VideoUpdateScaffoldView());
+              },
+              child: const Text("Go to video update view"),
             ),
             if (controller.appVideoPath.value != "")
               TextButton(
