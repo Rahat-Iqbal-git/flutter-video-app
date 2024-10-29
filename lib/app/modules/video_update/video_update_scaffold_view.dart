@@ -4,6 +4,9 @@ import 'dart:io';
 import 'package:ffmpeg_kit_flutter_full_gpl/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_full_gpl/return_code.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_video_camera/app/modules/video_update/video_update_plugin_screen.dart';
+import 'package:get/route_manager.dart';
+import 'package:get/state_manager.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 
@@ -24,6 +27,12 @@ class _VideoUpdateScaffoldViewState extends State<VideoUpdateScaffoldView> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    videoPlayerController.dispose();
   }
 
   // addFilter() async {
@@ -111,13 +120,20 @@ class _VideoUpdateScaffoldViewState extends State<VideoUpdateScaffoldView> {
             },
             child: const Text("Pick Video"),
           ),
-          const SizedBox(height: 65),
           TextButton(
             onPressed: () async {
               addFilter();
               // await Permission.storage.request();
             },
             child: const Text("Add Filter"),
+          ),
+          TextButton(
+            onPressed: () async {
+              Get.off(() {
+                return VideoUpdatePluginScreen(file: File(videoPath));
+              });
+            },
+            child: const Text("Go to video update plugin"),
           ),
         ],
       ),
